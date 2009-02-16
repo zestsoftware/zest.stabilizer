@@ -104,3 +104,6 @@ Two programs are installed globally:
 * ``stabilize`` which takes the infrae.subversion part of ``unstable.cfg``
   and finds out the latest tags for each of those development packages. It
   then adds a similar part to ``stable.cfg``.
+
+The development version of zest.stabilizer can be found at
+https://svn.plone.org/svn/collective/zest.stabilizer/trunk .
