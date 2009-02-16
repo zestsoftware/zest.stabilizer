@@ -166,7 +166,7 @@ def insert_msg_into_history(msg):
     target_line = headings[0]['line'] + 3
     if len(lines) < target_line:
         return
-    if 'nothing yet' in lines[target_line].lower():
+    if 'nothing changed yet' in lines[target_line].lower():
         del lines[target_line]
     # Msg formatting:
     msg = msg[:]
