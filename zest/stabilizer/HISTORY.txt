@@ -1,0 +1,60 @@
+Changelog zest.stabilizer
+=========================
+
+1.3 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
+1.2 (2009-02-16)
+----------------
+
+- Logging changes in history file now. [reinout]
+
+
+1.1.1 (2009-02-11)
+------------------
+
+- Small fix. -l doesn't exist everywhere, but --limit does. [reinout]
+
+
+1.1 (2009-02-11)
+----------------
+
+- Added ``needrelease`` command that shows the last log message of every
+  detected development package. Easy to see if one or more still need
+  releasing.  [reinout]
+
+
+1.0 (2009-02-08)
+----------------
+
+- First release on pypi. [reinout]
+
+- Fixed up documentation to make the product usable outside Zest. [reinout]
+
+
+0.2 (2008-11-06)
+----------------
+
+- Change the lines that are added in stable.cfg now that
+  infrae.subversion 1.4 has been released.  [maurits+reinout]
+
+- Add newline at end of contents before saving stable.cfg or
+  unstable.cfg.  [maurits]
+
+
+0.1 (2008-10-23)
+----------------
+
+- Extracting unstable eggs from [ourpackages] instead of develop section now.
+  [reinout]
+
+- unstable_fixup adds [ourpackages] section in place of 'develop =' section.
+  [reinout]
+
+- Added unstable_fixup script to check/perform common fixups that need to
+  happen in unstable.cfg.  [reinout]
+
+- Copied stabilize script out of zest.releaser.  [reinout]
