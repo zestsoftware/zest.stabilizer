@@ -4,7 +4,7 @@ Changelog zest.stabilizer
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Typo fixed. [reinout]
 
 
 1.2.1 (2009-02-16)
