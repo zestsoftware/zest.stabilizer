@@ -4,7 +4,8 @@ Changelog zest.stabilizer
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed our code to work with the refactored zest.releaser (with more
+  vcs support).  [maurits]
 
 
 1.2.2 (2009-02-16)

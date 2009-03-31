@@ -1,4 +1,4 @@
 TODO tasks
 ==========
 
-- Move it to the collective svn.
+- Get a prettier message to add to the history file.

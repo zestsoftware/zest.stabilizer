@@ -5,8 +5,10 @@ import logging
 import sys
 import os
 from pkg_resources import parse_version
+from commands import getoutput
 
 from zest.releaser import utils
+import zest.releaser.choose
 
 import buildoututils
 
@@ -60,9 +62,10 @@ def determine_tags(directories):
     for directory in directories:
         logger.debug("Determining tag for %s...", directory)
         os.chdir(directory)
-        version = utils.extract_version()
+        vcs = zest.releaser.choose.version_control()
+        version = vcs.version
         logger.debug("Current version is %r.", version)
-        available_tags = utils.available_tags()
+        available_tags = vcs.available_tags()
         # We seek a tag that's the same or less than the version as determined
         # by setuptools' version parsing. A direct match is obviously
         # right. The 'less' approach handles development eggs that have
@@ -81,12 +84,11 @@ def determine_tags(directories):
                 parsed_tag < parsed_version):
                 logger.debug("Found possible lower match: %s", tag)
                 found = tag
-        url = utils.svn_info()
-        name, base = utils.extract_name_and_base(url)
-        full_tag = base + 'tags/' + found
+        name = vcs.name
+        full_tag = vcs.tag_url(found)
         logger.debug("Picked tag %r for %s (currently at %r).",
-                     full_tag, name, version)
-        results.append(full_tag)
+                     full_tag, name, found)
+        results.append((full_tag, name))
         os.chdir(start_dir)
     return results
 
@@ -127,8 +129,7 @@ def add_new_part(tags, filename='stable.cfg'):
     new = ['[%s]' % PARTNAME]
     new.append('recipe = infrae.subversion >= 1.4')
     checkouts = []
-    for tag in tags:
-        name, base = utils.extract_name_and_base(tag)
+    for tag, name in tags:
         checkouts.append('%s %s' % (tag, name))
     lines = buildoututils.format_option('urls', checkouts)
     new += lines
@@ -155,7 +156,8 @@ def check_stable():
 
 
 def insert_msg_into_history(msg):
-    filename = utils.history_file()
+    vcs = zest.releaser.choose.version_control()
+    filename = vcs.history_file()
     if not filename:
         return
     lines = open(filename).read().splitlines()
@@ -199,9 +201,19 @@ def main():
     logger.debug("Diff: %s", diff)
     check_stable()
 
+    # XXX The diff is too ugly to put in the history file or the
+    # commit message.
     msg = ["Stabilized buildout to most recent svn tags of our packages:"]
     msg += diff
     insert_msg_into_history(msg)
     msg = '\n'.join(msg)
-    
-    utils.show_diff_offer_commit(msg)
+
+    # show diff, offer commit
+    vcs = zest.releaser.choose.version_control()
+    diff_cmd = vcs.cmd_diff()
+    diff = getoutput(diff_cmd)
+    logger.info("The '%s':\n\n%s\n" % (diff_cmd, diff))
+    if utils.ask("OK to commit this"):
+        commit_cmd = vcs.cmd_commit(msg)
+        commit = getoutput(commit_cmd)
+        logger.info(commit)
