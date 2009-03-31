@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.3 dev'
+version = '1.3dev'
 
 setup(
     name='zest.stabilizer',
@@ -38,7 +38,7 @@ setup(
     install_requires=[
         'setuptools',
         # -*- Extra requirements: -*-
-        'zest.releaser >= 1.5',
+        'zest.releaser >= 1.14dev',
         ],
     entry_points={
         'console_scripts': ['stabilize = zest.stabilizer.stabilize:main',
