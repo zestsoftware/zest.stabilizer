@@ -38,7 +38,7 @@ setup(
     install_requires=[
         'setuptools',
         # -*- Extra requirements: -*-
-        'zest.releaser >= 1.14',
+        'zest.releaser >= 2.0',
         ],
     entry_points={
         'console_scripts': ['stabilize = zest.stabilizer.stabilize:main',
