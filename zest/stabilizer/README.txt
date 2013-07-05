@@ -9,6 +9,9 @@ It is at the moment quite `Zest software <http://zestsoftware.nl>`_ specific
 in the sense that it is hardcoded to two assumptions/requirements that are
 true for us.
 
+**Note**: At Zest we have changed our client buildout setup and have
+not used this package in quite a while.
+
 
 Requirement 1: split buildout configs
 -------------------------------------
